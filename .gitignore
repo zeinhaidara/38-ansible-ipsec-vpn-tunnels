@@ -1,0 +1,7 @@
+memory/
+.env
+.vscode/
+.idea/
+*.retry
+.ansible/
+*.vault-pass
