@@ -1,0 +1,37 @@
+---
+- name: Install health check script
+  ansible.builtin.copy:
+    src: ipsec-healthcheck.sh
+    dest: /usr/local/sbin/ipsec-healthcheck
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create textfile collector directory
+  ansible.builtin.file:
+    path: "{{ ipsec_tunnel_textfile_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install health check units
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - ipsec-healthcheck.service
+    - ipsec-healthcheck.timer
+  notify: Reload systemd
+
+- name: Load new units before enabling the timer
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable health check timer
+  ansible.builtin.systemd_service:
+    name: ipsec-healthcheck.timer
+    enabled: true
+    state: started
