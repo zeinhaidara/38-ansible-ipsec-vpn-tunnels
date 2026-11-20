@@ -5,3 +5,13 @@ memory/
 *.retry
 .ansible/
 *.vault-pass
+
+# Keys, certificates and vault files never go in the repo
+pki/
+vault.yml
+*.key
+*.pem
+*.crt
+*.p12
+__pycache__/
+.pytest_cache/
