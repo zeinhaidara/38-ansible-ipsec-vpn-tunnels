@@ -1,0 +1,32 @@
+# Managed by Ansible (role ipsec_tunnel). Local edits are overwritten.
+connections {
+  {{ ipsec_tunnel_name }} {
+    version = 2
+    local_addrs = {{ ipsec_tunnel_local_addr }}
+    remote_addrs = {{ ipsec_tunnel_remote_addr }}
+    proposals = {{ ipsec_tunnel_ike_proposals }}
+    dpd_delay = {{ ipsec_tunnel_dpd_delay }}
+
+    local {
+      auth = pubkey
+      certs = {{ ipsec_tunnel_name }}.crt
+      id = "{{ ipsec_tunnel_local_id }}"
+    }
+    remote {
+      auth = pubkey
+      id = "{{ ipsec_tunnel_remote_id }}"
+      cacerts = {{ ipsec_tunnel_name }}-ca.crt
+    }
+
+    children {
+      {{ ipsec_tunnel_name }} {
+        local_ts = {{ ipsec_tunnel_local_subnets | join(',') }}
+        remote_ts = {{ ipsec_tunnel_remote_subnets | join(',') }}
+        esp_proposals = {{ ipsec_tunnel_esp_proposals }}
+        start_action = start
+        dpd_action = restart
+        close_action = start
+      }
+    }
+  }
+}
