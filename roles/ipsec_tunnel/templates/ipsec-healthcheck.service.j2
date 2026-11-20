@@ -1,0 +1,9 @@
+# Managed by Ansible (role ipsec_tunnel).
+[Unit]
+Description=Check IPsec tunnel {{ ipsec_tunnel_name }}
+After=strongswan.service
+
+[Service]
+Type=oneshot
+Environment=TEXTFILE_DIR={{ ipsec_tunnel_textfile_dir }}
+ExecStart=/usr/local/sbin/ipsec-healthcheck {{ ipsec_tunnel_name }}

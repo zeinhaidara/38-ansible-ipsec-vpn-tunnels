@@ -1,0 +1,10 @@
+# Managed by Ansible (role ipsec_tunnel).
+[Unit]
+Description=Run the IPsec tunnel health check every {{ ipsec_tunnel_healthcheck_interval }}
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec={{ ipsec_tunnel_healthcheck_interval }}
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,22 @@
+---
+ipsec_tunnel_name: onprem-cloud
+
+# Controller-side paths to public certificates. Not committed (pki/ is gitignored).
+ipsec_tunnel_ca_cert_src: "{{ playbook_dir }}/pki/ca.crt"
+ipsec_tunnel_cert_src: "{{ playbook_dir }}/pki/{{ inventory_hostname }}.crt"
+
+# PEM private key text. Must come from Ansible Vault; there is no default.
+# ipsec_tunnel_private_key_pem: "{{ vault_ipsec_tunnel_private_key_pem }}"
+
+ipsec_tunnel_ike_proposals: aes256gcm16-prfsha384-ecp384
+ipsec_tunnel_esp_proposals: aes256gcm16-ecp384
+ipsec_tunnel_dpd_delay: 30s
+
+ipsec_tunnel_packages:
+  Debian: [charon-systemd, strongswan-swanctl]
+  RedHat: [strongswan]
+ipsec_tunnel_service: strongswan
+
+# Health check
+ipsec_tunnel_healthcheck_interval: 1min
+ipsec_tunnel_textfile_dir: /var/lib/node_exporter/textfile_collector

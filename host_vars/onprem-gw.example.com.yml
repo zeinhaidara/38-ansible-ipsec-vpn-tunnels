@@ -1,0 +1,10 @@
+---
+# Placeholder addresses from documentation ranges (RFC 5737).
+ipsec_tunnel_local_addr: 198.51.100.10
+ipsec_tunnel_remote_addr: 203.0.113.20
+ipsec_tunnel_local_id: "CN=onprem-gw.example.com"
+ipsec_tunnel_remote_id: "CN=cloud-gw.example.com"
+ipsec_tunnel_local_subnets: ["192.168.10.0/24"]
+ipsec_tunnel_remote_subnets: ["10.20.0.0/16"]
+# Private key comes from host_vars/onprem-gw.example.com/vault.yml (not committed).
+ipsec_tunnel_private_key_pem: "{{ vault_ipsec_tunnel_private_key_pem }}"
