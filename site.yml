@@ -1,0 +1,6 @@
+---
+- name: Configure strongSwan IPsec tunnels with certificate auth
+  hosts: vpn_gateways
+  become: true
+  roles:
+    - ipsec_tunnel
