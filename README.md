@@ -20,6 +20,11 @@ timer, that logs the tunnel state and writes a Prometheus textfile metric.
 > on-premises and cloud with certificate-based authentication and
 > monitoring.
 
+Why it matters: tunnels set up by hand with a shared key are hard to repeat,
+hard to rotate, and often fail without anyone noticing. Certificates remove
+the shared secret, Ansible makes both ends the same every time, and the
+health check makes a dropped tunnel visible.
+
 ## Layout
 
 ```mermaid
